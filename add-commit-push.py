@@ -23,7 +23,8 @@ resultGitCommit = subprocess.run(["git", "commit", "-m", "\"Update files.\""], c
 print("")
 
 # Run the fit commit command 
-resultGitCommit = subprocess.run(["git", "commit", "-m", "\"Update files.\""], capture_output=True, text=True)
+message = "\"Update files.\""
+resultGitCommit = subprocess.run(["git", "commit", "-m", message], capture_output=True, text=True)
 print(resultGitCommit.stdout)
 print("STDERR:")
 print(resultGitCommit.stderr)
