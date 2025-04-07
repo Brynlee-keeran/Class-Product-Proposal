@@ -11,16 +11,14 @@ print(resultGitStatus.stdout)
 
 # Executing git add.
 print("Executing \"git add -A\":")
-print("")
 
 # Run the git add command
 resultGitAdd = subprocess.run(["git", "add", "-A"], capture_output=True, text=True)
 print(resultGitAdd.stdout)
-print("STDERR:") 
-print(resultGitAdd.stderr)
+print("")
 
 # Run the fit commit command 
-resultGitCommit = subprocess.run(["git", "commit", "-m", "\"Update files.\""], capture_output=True, text=True)
+print("Executing \"git commit -m\":")
 print("")
 
 # Run the fit commit command 
@@ -29,11 +27,9 @@ if len(sys.argv) == 3:
     message = sys.argv[2]
     print(message)
 
-
 resultGitCommit = subprocess.run(["git", "commit", "-m", message], capture_output=True, text=True)
 print(resultGitCommit.stdout)
-print("STDERR:")
-print(resultGitCommit.stderr)
+print("")
 
 # Executing git push.
 print("Executing \"git push\":")
@@ -42,8 +38,4 @@ print("")
 # Run the git push command
 resultGitPush = subprocess.run(["git", "push"], capture_output=True, text=True)
 print(resultGitPush.stdout)
-print("STDERR:")
-print(resultGitPush.stderr)
-
-#print("STDERR:")
-#print(result.stderr)
+print("")
