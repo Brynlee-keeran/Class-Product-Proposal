@@ -1,18 +1,150 @@
-<!DOCTYPE html> 
-<html>
-  <head>
-    <title>Proposal</title>
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
 
-    <ol type="1">
-      <li>Name: CoachSlot</li>
-      <li>Team Members: just me!</li>
-      <li>Application Overview: Organize coach to student schedules.</li>
-      <li>Technology Overview: Web application using CSS, HTML, Javascript, and hosted on Github pages.</li>
-      <li>Last Update Date: 4/4/2025</li>
-    </ol>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pretty Calendar</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #dfe9f3, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-  </body>
+    .calendar-container {
+      background-color: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      padding: 30px;
+      text-align: center;
+      width: 350px;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      width: 14.2%;
+      height: 40px;
+      text-align: center;
+      border-radius: 8px;
+      transition: background-color 0.2s;
+    }
+
+    th {
+      color: #888;
+      font-weight: normal;
+    }
+
+    td {
+      background-color: #f9f9f9;
+    }
+
+    td:hover {
+      background-color: #e3f2fd;
+      cursor: pointer;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .month-year {
+      font-size: 18px;
+      color: #555;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="calendar-container">
+    <h1>Monthly Schedules</h1>
+    <div class="header">
+      <button onclick="changeMonth(-1)">←</button>
+      <span class="month-year" id="monthYear"></span>
+      <button onclick="changeMonth(1)">→</button>
+    </div>
+    <table id="calendar"></table>
+    <p id="lastUpdated" style="margin-top: 20px; font-size: 12px; color: #777;"></p>
+  </div>
+
+  <script>
+    const monthYear = document.getElementById('monthYear');
+    const calendar = document.getElementById('calendar');
+    let current = new Date();
+
+    function renderCalendar() {
+      const year = current.getFullYear();
+      const month = current.getMonth();
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ];
+
+      monthYear.textContent = `${monthNames[month]} ${year}`;
+
+      let html = '<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th>' +
+                 '<th>Thu</th><th>Fri</th><th>Sat</th></tr><tr>';
+
+      for (let i = 0; i < firstDay; i++) {
+        html += '<td></td>';
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        if ((firstDay + day - 1) % 7 === 0 && day !== 1) html += '</tr><tr>';
+        html += `<td>${day}</td>`;
+      }
+
+      html += '</tr>';
+      calendar.innerHTML = html;
+    }
+
+    function changeMonth(offset) {
+      current.setMonth(current.getMonth() + offset);
+      renderCalendar();
+    }
+
+    renderCalendar();
+
+    const updated = new Date();
+    document.getElementById('lastUpdated').textContent =
+      `Last updated: ${updated.toLocaleDateString()} at ${updated.toLocaleTimeString()}`;
+  
+  </script>
+</body>
 </html>
+
